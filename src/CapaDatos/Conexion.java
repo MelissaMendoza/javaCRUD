@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.Set;
+
 /**
  * @author Melissa
  */
@@ -85,6 +86,18 @@ public class Conexion {
              throw ex;
          }
          
+         public ResultSet EjecutarConsulta (String Cadena) throws SQLException 
+         {
+             try
+             {
+                 Sentencia= ConexionDatos.prepareStatement(Cadena);
+                 ConjuntoDatos = Sentencia.executeQuery();
+                 return ConjuntoDatos;
+             }
+             catch(SQLException ex) 
+             { 
+                 throw ex; 
+             } 
          
      }
     

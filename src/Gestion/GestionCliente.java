@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.Set;
 import javax.swing.JTable;
+import java.sql.ResultSet;
 
 
 /**
@@ -108,6 +109,26 @@ public class GestionCliente implements IGestion
         { 
             throw ex;
         }
+        @Override
+        public void Consultar() throws SQLException 
+                {
+                    try
+                    { 
+                        Conexion.GetInstancia().Conectar();
+                        ResultSet consulta = Conexion.GetInstancia().EjecutarConsulta("SELECT cedula, nombre, direccion, cupo FROM cliente WHERE cedula = '"+cliente.getCedula()+"'"); 
+                        while(consulta.next())
+                        {
+                            cliente.setCedula(consulta.getString(1));
+                            cliente.setNombre(consulta.getString(2));
+                            cliente.setDireccion(consulta.getString(3));
+                            cliente.setCupo(consulta.getDouble(4));
+                        } 
+                        Conexion.GetInstancia().Desconectar(); 
+                    }
+                    catch(SQLException e) 
+                    { throw ex;
+                    }
+                }
     }
     
 }
